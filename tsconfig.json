@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "target": "es5",
+    "module": "commonjs",
+    "jsx": "react-jsx", // or "react" if using older versions
+    "baseUrl": "./src", // Optional, helps with resolving modules
+    "paths": {
+      "*": ["node_modules/*", "*"]
+      // "@/*": ["./*"]
+    }
+  },
+  "include": ["src/**/*"]
+}

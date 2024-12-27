@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { register } from "../api/auth";
+import { register } from "../api/usersService";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "components/ui/button";
 

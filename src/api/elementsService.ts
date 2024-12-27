@@ -184,3 +184,33 @@ export const editElement = async (
     throw error;
   }
 };
+
+// Fetch shared elements
+export const getSharedElements = async (): Promise<PrivateElement[]> => {
+  const token = sessionStorage.getItem("jwt_token");
+
+  try {
+    const response = await axiosInstance.get("/elements/shared", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.sharedElements;
+  } catch (error) {
+    console.error("Error fetching shared elements:", error);
+    throw error;
+  }
+};
+
+// Share an element with specific users
+export const shareElement = async (elementId: number, userIds: number[]) => {
+  try {
+    const response = await axiosInstance.put(`/elements/${elementId}/share`, {
+      sharedForUserIds: userIds,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error sharing element:", error);
+    throw error;
+  }
+};

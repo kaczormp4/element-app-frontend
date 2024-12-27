@@ -39,3 +39,18 @@ export const getSession = async () => {
   });
   return response.data;
 };
+
+export const getAllUsers = async () => {
+  const token = sessionStorage.getItem("jwt_token");
+
+  if (!token) {
+    throw new Error("No token found");
+  }
+
+  const response = await axios.get(`${API_URL}/users/all`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};

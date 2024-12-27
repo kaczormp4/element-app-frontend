@@ -204,10 +204,19 @@ export const getSharedElements = async (): Promise<PrivateElement[]> => {
 
 // Share an element with specific users
 export const shareElement = async (elementId: number, userIds: number[]) => {
+  const token = sessionStorage.getItem("jwt_token");
   try {
-    const response = await axiosInstance.put(`/elements/${elementId}/share`, {
-      sharedForUserIds: userIds,
-    });
+    const response = await axiosInstance.put(
+      `/elements/${elementId}/share`,
+      {
+        sharedForUserIds: userIds,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     console.error("Error sharing element:", error);

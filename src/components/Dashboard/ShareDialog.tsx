@@ -1,4 +1,5 @@
 import { PopoverTrigger } from "@radix-ui/react-popover";
+import { shareElement } from "api/elementsService";
 import { getAllUsers } from "api/usersService";
 import { Button } from "components/ui/button";
 import {
@@ -29,9 +30,11 @@ interface User {
 
 const ShareDialog = ({
   open,
+  currentId,
   onChange,
 }: {
   open: boolean;
+  currentId: number;
   onChange: (boolean: boolean) => void;
 }) => {
   const [isPopoverOpen, setPopoverOpen] = useState<boolean>(false);
@@ -56,6 +59,20 @@ const ShareDialog = ({
 
     fetchUsers();
   }, []);
+
+  const handleShare = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const selectedUserId = users.find((x) => x.username === label).id;
+    try {
+      await shareElement(currentId, [selectedUserId]);
+      console.log("Element shared successfully");
+    } catch (error) {
+      console.error("Error sharing element", error);
+    } finally {
+      onChange(false);
+    }
+  };
 
   const mappedUsers = useMemo(
     () =>
@@ -130,7 +147,7 @@ const ShareDialog = ({
           </PopoverContent>
         </Popover>
         <DialogFooter>
-          <Button variant="default" className="m-2">
+          <Button variant="default" className="m-2" onClick={handleShare}>
             Share
           </Button>
         </DialogFooter>

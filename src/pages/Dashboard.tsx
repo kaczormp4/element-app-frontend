@@ -45,6 +45,8 @@ const Dashboard: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  const [currentId, setCurrentId] = useState<number | null>(null);
+
   const [isShareDialogOpen, setIsShareDialogOpen] = useState<boolean>(false);
 
   const navigate = useNavigate();
@@ -195,7 +197,10 @@ const Dashboard: React.FC = () => {
                               <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
                             </DropdownMenuItem>
                             <DropdownMenuItem
-                              onClick={() => handleShareOpenModal(true)}
+                              onClick={() => {
+                                setCurrentId(element.id);
+                                handleShareOpenModal(true);
+                              }}
                             >
                               Share
                               <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
@@ -228,7 +233,11 @@ const Dashboard: React.FC = () => {
         </main>
       </div>
       {isShareDialogOpen && (
-        <ShareDialog open={isShareDialogOpen} onChange={handleShareOpenModal} />
+        <ShareDialog
+          open={isShareDialogOpen}
+          currentId={currentId}
+          onChange={handleShareOpenModal}
+        />
       )}
     </>
   );

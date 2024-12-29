@@ -7,4 +7,5 @@ export const Paths = {
   CREATE_ELEMENT: "/dashboard/new",
   EDIT_ELEMENT: "/dashboard/:id/edit",
   SHARED: "/shared",
+  CONFIRM_EMAIL: "/confirm-email",
 } as const;

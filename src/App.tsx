@@ -8,6 +8,7 @@ import Dashboard from "pages/Dashboard";
 import CreateElement from "pages/dashboard/CreateElement";
 import EditElement from "pages/dashboard/EditElement";
 import { Paths } from "constants/paths";
+import ConfirmEmail from "pages/ConfirmEmail";
 
 interface RouteConfig {
   path: string;
@@ -26,6 +27,10 @@ const securedRoutes: RouteConfig[] = [
   {
     path: Paths.EDIT_ELEMENT,
     element: <EditElement />,
+  },
+  {
+    path: Paths.CONFIRM_EMAIL,
+    element: <ConfirmEmail />,
   },
 ];
 

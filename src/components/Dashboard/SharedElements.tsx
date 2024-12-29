@@ -27,7 +27,7 @@ const SharedElements: React.FC = () => {
       <h2 className="text-xl font-bold text-gray-800 mb-4">
         Elements shared for me:
       </h2>
-      {!!sharedElements ? (
+      {sharedElements ? (
         <ul className="grid gap-4">
           {sharedElements.map((element) => (
             <li

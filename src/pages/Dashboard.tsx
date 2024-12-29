@@ -20,17 +20,12 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuSeparator,
   DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "components/ui/dropdown-menu";
+import { Paths } from "constants/paths";
 import { useCallback, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { generatePath, Link, useNavigate } from "react-router-dom";
 
 interface Element {
   id: number;
@@ -104,7 +99,12 @@ const Dashboard: React.FC = () => {
   }, []);
 
   const handleEdit = useCallback((elementId: number) => {
-    navigate(`/dashboard/${elementId}/edit`);
+    const editElementPath = generatePath(Paths.EDIT_ELEMENT, {
+      id: elementId.toString(),
+    });
+    console.log(editElementPath);
+
+    navigate(editElementPath);
   }, []);
 
   const handleShareOpenModal = useCallback((boolean: boolean) => {
@@ -115,7 +115,7 @@ const Dashboard: React.FC = () => {
     try {
       await logout();
       console.log("Logged out successfully");
-      navigate("/"); // Redirect to login page
+      navigate(Paths.DEFAULT);
     } catch (error) {
       console.error("Error during logout", error);
     }
@@ -144,7 +144,7 @@ const Dashboard: React.FC = () => {
             </h2>
             <form className="bg-white shadow rounded p-4 border border-gray-200">
               {/* Add input fields for creating new elements here */}
-              <Link to="/dashboard/new">
+              <Link to={Paths.CREATE_ELEMENT}>
                 <Button variant="default">Create new Element</Button>
               </Link>
             </form>

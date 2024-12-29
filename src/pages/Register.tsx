@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { register } from "../api/usersService";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "components/ui/button";
+import { Paths } from "constants/paths";
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +14,7 @@ const Register: React.FC = () => {
     e.preventDefault();
     try {
       await register(email, password);
-      navigate("/login");
+      navigate(Paths.LOGIN);
     } catch (err) {
       setError("Registration failed");
     }

@@ -3,13 +3,28 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["eslint:recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended" // Extend TypeScript recommended rules
+  ],
+  "parser": "@typescript-eslint/parser", // Use the TypeScript parser
+  "plugins": [
+    "@typescript-eslint" // Include the TypeScript plugin
+  ],
   "rules": {
     "semi": ["error", "always"],
     "prefer-const": ["error"],
     "no-unused-vars": [
       "error",
       { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }
-    ]
+    ],
+    "no-undef": "off", // Disable no-undef rule to avoid issues with TypeScript interfaces
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }
+    ] // Use TypeScript's no-unused-vars rule
   }
 }

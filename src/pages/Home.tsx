@@ -5,6 +5,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "components/ui/Collabsible";
+import { Paths } from "constants/paths";
 import { useAuth } from "hooks/useAuth";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -41,15 +42,15 @@ const HomePage: React.FC = () => {
         <h1 className="text-2xl font-bold text-gray-800">Public Notes</h1>
         <div>
           {!!user ? (
-            <Link to="/dashboard">
+            <Link to={Paths.CREATE_ELEMENT}>
               <Button variant="default">Dashboard</Button>
             </Link>
           ) : (
             <>
-              <Link to="/login">
+              <Link to={Paths.LOGIN}>
                 <Button variant="default">Login</Button>
               </Link>
-              <Link to="/register">
+              <Link to={Paths.REGISTER}>
                 <Button variant="ghost">Register</Button>
               </Link>
             </>

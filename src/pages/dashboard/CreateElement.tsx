@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from "components/ui/Select";
 import { createElement } from "api/elementsService";
+import { Paths } from "constants/paths";
 
 interface CreateElementForm {
   title: string;
@@ -50,7 +51,7 @@ const CreateElement: React.FC = () => {
     try {
       const response = await createElement(formData);
       console.log("Element created successfully");
-      navigate("/dashboard"); // Redirect to elements list page
+      navigate(Paths.DASHBOARD);
     } catch (error) {
       console.error("Error creating element", error);
     } finally {
@@ -60,7 +61,7 @@ const CreateElement: React.FC = () => {
 
   return (
     <div className="max-w-md mx-auto p-6 border rounded-md shadow-sm bg-white mt-6">
-      <Link to="/dashboard">
+      <Link to={Paths.DASHBOARD}>
         <Button variant="default" className="m-2">
           Back
         </Button>

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -7,38 +7,44 @@ import HomePage from "pages/Home";
 import Dashboard from "pages/Dashboard";
 import CreateElement from "pages/dashboard/CreateElement";
 import EditElement from "pages/dashboard/EditElement";
+import { Paths } from "constants/paths";
+
+interface RouteConfig {
+  path: string;
+  element: ReactNode;
+}
+
+const securedRoutes: RouteConfig[] = [
+  {
+    path: Paths.DASHBOARD,
+    element: <Dashboard />,
+  },
+  {
+    path: Paths.CREATE_ELEMENT,
+    element: <CreateElement />,
+  },
+  {
+    path: Paths.EDIT_ELEMENT,
+    element: <EditElement />,
+  },
+];
+
+const publicRoutes: RouteConfig[] = [
+  {
+    path: Paths.HOME,
+    element: <HomePage />,
+  },
+  {
+    path: Paths.LOGIN,
+    element: <Login />,
+  },
+  {
+    path: Paths.REGISTER,
+    element: <Register />,
+  },
+];
 
 const App: FC = () => {
-  const securedRoutes = [
-    {
-      path: "/dashboard",
-      element: <Dashboard />,
-    },
-    {
-      path: "/dashboard/new",
-      element: <CreateElement />,
-    },
-    {
-      path: "/dashboard/:id/edit",
-      element: <EditElement />,
-    },
-  ];
-
-  const publicRoutes = [
-    {
-      path: "/*",
-      element: <HomePage />,
-    },
-    {
-      path: "/login",
-      element: <Login />,
-    },
-    {
-      path: "/register",
-      element: <Register />,
-    },
-  ];
-
   return (
     <Router>
       <Routes>

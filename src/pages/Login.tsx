@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { login } from "../api/usersService";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "components/ui/button";
+import { Paths } from "constants/paths";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +14,7 @@ const Login: React.FC = () => {
     e.preventDefault();
     try {
       await login(email, password);
-      navigate("/dashboard");
+      navigate(Paths.DASHBOARD);
     } catch (err) {
       setError("Invalid credentials");
     }

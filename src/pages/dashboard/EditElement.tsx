@@ -17,6 +17,7 @@ import {
   fetchElementById,
   PrivateElement,
 } from "api/elementsService";
+import { Paths } from "constants/paths";
 
 const EditElement: React.FC = () => {
   const navigate = useNavigate();
@@ -73,7 +74,7 @@ const EditElement: React.FC = () => {
 
       const response = await editElement(id, formData);
       console.log("Element updated successfully");
-      navigate(`/dashboard`); // Redirect to the element details page
+      navigate(Paths.DASHBOARD);
     } catch (error) {
       console.error("Error updating element", error);
     } finally {
@@ -86,7 +87,7 @@ const EditElement: React.FC = () => {
       <Button
         variant="default"
         className="m-2"
-        onClick={() => navigate("/dashboard")}
+        onClick={() => navigate(Paths.DASHBOARD)}
       >
         Back
       </Button>

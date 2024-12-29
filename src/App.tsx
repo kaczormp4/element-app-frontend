@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -8,37 +8,50 @@ import Dashboard from "pages/Dashboard";
 import CreateElement from "pages/dashboard/CreateElement";
 import EditElement from "pages/dashboard/EditElement";
 
-const App: React.FC = () => {
+const App: FC = () => {
+  const securedRoutes = [
+    {
+      path: "/dashboard",
+      element: <Dashboard />,
+    },
+    {
+      path: "/dashboard/new",
+      element: <CreateElement />,
+    },
+    {
+      path: "/dashboard/:id/edit",
+      element: <EditElement />,
+    },
+  ];
+
+  const publicRoutes = [
+    {
+      path: "/*",
+      element: <HomePage />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/register",
+      element: <Register />,
+    },
+  ];
+
   return (
     <Router>
       <Routes>
-        <Route path="/*" element={<HomePage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route
-          path="/dashboard"
-          element={
-            <SecuredRoute>
-              <Dashboard />
-            </SecuredRoute>
-          }
-        />
-        <Route
-          path="/dashboard/new"
-          element={
-            <SecuredRoute>
-              <CreateElement />
-            </SecuredRoute>
-          }
-        />
-        <Route
-          path="/dashboard/:id/edit"
-          element={
-            <SecuredRoute>
-              <EditElement />
-            </SecuredRoute>
-          }
-        />
+        {publicRoutes.map(({ path, element }) => (
+          <Route key={path} path={path} element={element} />
+        ))}
+        {securedRoutes.map(({ path, element }) => (
+          <Route
+            key={path}
+            path={path}
+            element={<SecuredRoute>{element}</SecuredRoute>}
+          />
+        ))}
       </Routes>
     </Router>
   );

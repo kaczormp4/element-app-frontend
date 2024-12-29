@@ -1,4 +1,5 @@
 import axios from "axios";
+import axiosInstance from "./axiosInstance";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL; // Set the API base URL
 axios.defaults.withCredentials = true; // Include HTTP-Only cookies in requests
@@ -52,5 +53,11 @@ export const getAllUsers = async () => {
       Authorization: `Bearer ${token}`,
     },
   });
+  return response.data;
+};
+
+export const logout = async () => {
+  const response = await axiosInstance.post("/users/logout");
+  sessionStorage.setItem("jwt_token", "");
   return response.data;
 };

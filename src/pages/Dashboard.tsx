@@ -6,6 +6,7 @@ import {
   publishElement,
   unPublishElement,
 } from "api/elementsService";
+import { logout } from "api/usersService";
 import SharedElements from "components/Dashboard/SharedElements";
 import ShareDialog from "components/Dashboard/ShareDialog";
 import { Button } from "components/ui/button";
@@ -110,6 +111,16 @@ const Dashboard: React.FC = () => {
     setIsShareDialogOpen(boolean);
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      await logout();
+      console.log("Logged out successfully");
+      navigate("/"); // Redirect to login page
+    } catch (error) {
+      console.error("Error during logout", error);
+    }
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -121,9 +132,9 @@ const Dashboard: React.FC = () => {
           <Link to="/">
             <Button variant="link">Public Notes</Button>
           </Link>
-          <button className="text-white bg-red-500 hover:bg-red-600 font-medium rounded px-4 py-2">
+          <Button variant="destructive" onClick={handleLogout}>
             Logout
-          </button>
+          </Button>
         </header>
 
         <main className="w-full max-w-6xl mx-auto">
